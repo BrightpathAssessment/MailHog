@@ -12,14 +12,11 @@ permissions:
   packages: write
 
 env:
-  # TODO: Change variable to your image's name.
   IMAGE_NAME: mailhog
 
 jobs:
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
   push:
-    # Ensure test job passes before pushing image.
+
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +29,7 @@ jobs:
         id: buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Log in to GitHub Package Repository with Docker
+      - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
@@ -43,5 +40,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: brightpathassessment/mailhog:latest
+          tags: ghcr.io/brightpathassessment/mailhog:latest
           platforms: linux/amd64,linux/arm64
